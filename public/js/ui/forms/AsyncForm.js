@@ -17,7 +17,7 @@ class AsyncForm {
     if (!element) {
       throw new Error ("Невалидное значение для AsyncForm") 
     }
-    this.egisterEvents()
+    this.registerEvents()
   }
 
   /**

@@ -36,8 +36,8 @@ class Sidebar {
    * */
   static initAuthLinks() {
     const sidebarLogin = document.querySelector('.menu-item_login');
-    const sidebarRegister = document.querySelectorAll('.menu-item_register');
-    const sidebarLogout = document.querySelectorAll('.menu-item_logout');
+    const sidebarRegister = document.querySelector('.menu-item_register');
+    const sidebarLogout = document.querySelector('.menu-item_logout');
 
     sidebarLogin.addEventListener('click', () => {
       App.getModal('login').open();
