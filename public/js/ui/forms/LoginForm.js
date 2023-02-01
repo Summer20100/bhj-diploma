@@ -1,5 +1,3 @@
-const { useSSRContext } = require("vue");
-
 /**
  * Класс LoginForm управляет формой
  * входа в портал
@@ -13,8 +11,11 @@ class LoginForm extends AsyncForm {
    * */
   onSubmit(data) {
     User.login(data, (error, response) => {
-      App.setState( 'user-logged' );
-      App.App.getModal('login').close();
+      if (response.success) {
+        document.forms['login-form'].reset();
+        App.setState( 'user-logged' );
+        App.getModal('login').close();
+      }
     })
   }
 }
