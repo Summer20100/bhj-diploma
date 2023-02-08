@@ -20,13 +20,12 @@ class CreateTransactionForm extends AsyncForm {
   renderAccountsList() {
     const modalAccList = this.element.querySelector('.accounts-select');
     const data = User.current();
-    Account.list(data, (err, response) => { 
+    modalAccList.innerHTML = '';
+
+    Account.list(data, (err, response) => {
       if (response.success) {
-        response.data.forEach(item => {
-          modalAccList.innerHTML += 
-          `
-          <option value="${item.id}">${item.name}</option>
-          `
+        modalAccList.innerHTML = response.data.reduce( (html, item) => {
+          return html += `<option value="${item.id}">${item.name}</option>`
         })
       }
     })
@@ -42,16 +41,12 @@ class CreateTransactionForm extends AsyncForm {
     Transaction.create(data, (err, response) => {
       if (response.success) {
         let modalName;
-        switch (data.type) {
-          case 'expense':
-            modalName = 'newExpense';
-          break;
-          case 'income':
-            modalName = 'newIncome';
-          break;
-        };
-        App.getForm(modalName).reset();
-        App.getModal(modalName).clear();
+        let formName;
+       
+        data.type = 'expense' ? (modalName = 'newExpense', formName = 'createExpense') : (modalName = 'newIncome', formName = 'createIncome');
+
+        App.getForm(formName).element.reset()
+        App.getModal(modalName).close();
         App.update();
       }
     })

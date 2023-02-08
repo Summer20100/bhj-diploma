@@ -25,18 +25,17 @@ class TransactionsWidget {
    * экземпляра окна
    * */
   registerEvents() {
-    const btns = document.querySelectorAll('.transactions-panel > button');
-    btns.forEach( btn => {
-      btn.addEventListener('click', (ev) => {
-        ev.preventDefault();
-        switch(ev.target.closest('button').classList[3]) {
-          case 'create-income-button':
-            App.getModal('newIncome').open();
-          break;
-          case 'create-expense-button':
-            App.getModal('newExpense').open();
-        }
-      })
-    })
+    const btnIncome = document.querySelector('.create-income-button');
+    const btnExpense = document.querySelector('.create-expense-button');
+
+    btnIncome.addEventListener('click', (ev) => {
+      ev.preventDefault();
+      App.getModal('newIncome').open();
+    });
+
+    btnExpense.addEventListener('click', (ev) => {
+      ev.preventDefault();
+      App.getModal('newExpense').open();
+    });
   }
 }
