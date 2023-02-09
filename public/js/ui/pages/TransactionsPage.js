@@ -36,8 +36,6 @@ class TransactionsPage {
     const btnRemoveAccount = document.querySelector('.remove-account');
     const btnTransactionRemove = document.querySelector('.transaction__remove');
 
-    btnTransactionRemove
-
     btnRemoveAccount.addEventListener('click', (ev) => {
       this.removeAccount();
     });
