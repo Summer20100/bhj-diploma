@@ -29,13 +29,16 @@ class AccountsWidget {
    * вызывает AccountsWidget.onSelectAccount()
    * */
   registerEvents() {
-    const createAccount = document.querySelector('.create-account');
-    createAccount.addEventListener('click', ev => {
-      App.getModal('createAccount').open();
-      if (ev.target.closest('li.account')) {
+    const addNewAccBtn = document.querySelector('.accounts-panel');
+    addNewAccBtn.addEventListener('click', (ev) => {
+      ev.preventDefault();
+      if (ev.target.closest('span.create-account')) {
+        App.getModal('createAccount').open();
+      }
+      if (ev.target.closest('li.account')) {    
         this.onSelectAccount(ev.target.closest('li.account'))
       }
-    })
+    });
   }
 
   /**
@@ -80,10 +83,10 @@ class AccountsWidget {
   onSelectAccount( element ) {
     const selectedAcount = document.querySelector('li.active');
     if (selectedAcount) {
-      selectedAcc.classList.remove('active');
+      selectedAcount.classList.remove('active');
     }
     element.classList.add('active');
-    App.showPage( 'transactions', { account_id: element.id });
+    App.showPage( 'transactions', { account_id: element.dataset.id });
   }
 
   /**

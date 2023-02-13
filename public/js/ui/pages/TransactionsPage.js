@@ -33,16 +33,16 @@ class TransactionsPage {
    * TransactionsPage.removeAccount соответственно
    * */
   registerEvents() {
-    const btnRemoveAccount = document.querySelector('.remove-account');
-    const btnTransactionRemove = document.querySelector('.transaction__remove');
-
-    btnRemoveAccount.addEventListener('click', (ev) => {
-      this.removeAccount();
-    });
-
-    btnTransactionRemove.addEventListener('click', (ev) => {
-      this.removeTransaction(ev.target.dataset.id);
-    });
+    const deleteBtns = document.querySelector('.content-wrapper');
+    deleteBtns.addEventListener('click', (ev) => {
+      ev.preventDefault();
+      if (ev.target.classList.contains('remove-account')) {
+        this.removeAccount();
+      }
+      else if (ev.target.classList.contains('btn-danger')) {    
+        this.removeTransaction(ev.target.dataset.id);
+      }
+    })
   }
 
   /**
@@ -55,15 +55,13 @@ class TransactionsPage {
    * для обновления приложения
    * */
   removeAccount() {
-    if (this.lastOptions) {
-      if (window.confirm('Вы действительно хотите удалить счёт?')) {
-        TransactionsPage.clear();
-        const id = document.querySelector('li.active').dataset.id;
-        Account.remove( { id: id } , (error, response) => {
-          App.updateWidgets();
-          App.updateForms()
-        })
-      } 
+    if (this.lastOptions && window.confirm('Вы действительно хотите удалить счёт?')) {
+      this.clear();
+      const id = document.querySelector('li.active').dataset.id;
+      Account.remove( { id: id } , (error, response) => {
+        App.updateWidgets();
+        App.updateForms()
+      })
     }
   }
 
@@ -140,7 +138,7 @@ class TransactionsPage {
    * */
   getTransactionHTML(item){
     let transactionType;
-    item.type === 'income' ? trnzType = 'transaction_income' : trnzType = 'transaction_expense';
+    item.type === 'income' ? transactionType = 'transaction_income' : transactionType = 'transaction_expense';
 
     return (
       `<div class="transaction ${transactionType} row">
