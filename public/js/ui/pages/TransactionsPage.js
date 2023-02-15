@@ -36,10 +36,10 @@ class TransactionsPage {
     const deleteBtns = document.querySelector('.content-wrapper');
     deleteBtns.addEventListener('click', (ev) => {
       ev.preventDefault();
-      if (ev.target.classList.contains('remove-account')) {
+      if (ev.target.closest('.remove-account')) {
         this.removeAccount();
       }
-      else if (ev.target.classList.contains('btn-danger')) {    
+      else if (ev.target.closest('.transaction__remove')) {    
         this.removeTransaction(ev.target.dataset.id);
       }
     })
@@ -57,7 +57,7 @@ class TransactionsPage {
   removeAccount() {
     if (this.lastOptions && window.confirm('Вы действительно хотите удалить счёт?')) {
       this.clear();
-      const id = document.querySelector('li.active').dataset.id;
+      const id = this.lastOptions.account_id;
       Account.remove( { id: id } , (error, response) => {
         App.updateWidgets();
         App.updateForms()

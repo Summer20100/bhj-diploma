@@ -27,7 +27,7 @@ class UserWidget {
    * */
   update(){
     if (User.current()) {
-      const userName = document.getElementsByClassName('user-name');
+      const userName = document.getElementsByClassName('user-name')[0];
       userName.innerHTML = User.current().name;
     }
   }

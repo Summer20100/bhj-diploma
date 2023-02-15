@@ -12,13 +12,13 @@ const createRequest = (options = {}) => {
   let formData = new FormData();
       
   if (options.method !== 'GET') {
-    Object.entries(options.data).forEach( ( [key, value] ) => {
+    Object.entries(options.data || {}).forEach( ( [key, value] ) => {
       formData.append( key, value )
     })
   } else {
     formData = '';
     sendURL += '?';
-    Object.entries(options.data).forEach( ( [key, value] ) => {
+    Object.entries(options.data || {}).forEach( ( [key, value] ) => {
       sendURL += `${key}=${value}&`
     })
     sendURL = sendURL.slice(0, -1)
